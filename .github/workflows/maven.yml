@@ -20,6 +20,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |
+        sudo apt-get install xml2
+    - name: Grep version from pom.xml
+      run: xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'
     - name: Build with Maven to create Greeter and Mortal contract
       run: mvn web3j:generate-sources --file pom.xml
     - name: Build with Maven
