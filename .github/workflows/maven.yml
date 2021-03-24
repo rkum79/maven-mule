@@ -33,6 +33,8 @@ jobs:
       run: mvn install --file pom.xml
     - name: Build with Maven
       run: echo VERSION=${{ steps.variables.outputs.version }}
+    outputs:
+      mule_version: ${{ steps.variables.outputs.version }} 
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -45,4 +47,4 @@ jobs:
       run: |
         sudo apt-get install curl jq
     - name: Build with Maven
-      run: echo VERSION_DEPLOY=${{ needs.build.steps.variables.outputs.version }}
+      run: echo VERSION_DEPLOY=echo "${{ needs.build.outputs.version }}"
