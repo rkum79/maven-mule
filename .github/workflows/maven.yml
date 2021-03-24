@@ -30,9 +30,9 @@ jobs:
     - name: check git log
       run: git log -1
     - name: Check Branch Name
-      run: echo BRANCH_NAME="${{ GITHUB_REF }}"
+      run: echo BRANCH_NAME="$GITHUB_REF"
     - name: Check API URL
-      run: echo REPO_URL="${{ GITHUB_API_URL }}"
+      run: echo REPO_URL="$GITHUB_API_URL"
 #    - name: Build with Maven to create Greeter and Mortal contract
 #      run: mvn web3j:generate-sources --file pom.xml
 #    - name: Build with Maven
