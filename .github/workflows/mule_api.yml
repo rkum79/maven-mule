@@ -69,13 +69,13 @@ jobs:
       with:
          name: Mule-API
          path: prod-api
-    - uses: ./
+    - uses: actions/checkout@v2
+      # this is the new step
+    - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
+      if: always()
       with:
-         github-token: ${{ github.token }}
-         ms-teams-webhook-uri: "https://teams.microsoft.com/l/channel/19%3adf802028bd2c496d9892dc7b51c0f3d8%40thread.tacv2/General?groupId=e3bb426d-7f52-4827-aa48-efe95a5b060a&tenantId=d52c9ea1-7c21-47b1-82a3-33a74b1f74b8"
-         notification-summary: OMG!! Something Exploded
-         notification-color: dc3545
-         timezone: America/Denver 
+        github-token: ${{ github.token }}
+        webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
   TAG_Creation:
     runs-on: ubuntu-latest
     needs: [Munit, BUILD]
