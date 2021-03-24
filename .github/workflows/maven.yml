@@ -23,9 +23,15 @@ jobs:
     - name: Install dependencies for fetch the details from pom.xml
       run: |
         sudo apt-get install xml2
-    - name: Grep version from pom.xml
+    - name: Set variables
+        id: variables
+        run: |
+          echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
+    - name: 
       run: xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'
     - name: Build with Maven to create Greeter and Mortal contract
       run: mvn web3j:generate-sources --file pom.xml
     - name: Build with Maven
       run: mvn install --file pom.xml
+    - name: Build with Maven
+      run: echo VERSION=${{ steps.variables.outputs.version }}
