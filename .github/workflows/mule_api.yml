@@ -71,6 +71,9 @@ jobs:
     needs: [Munit, BUILD]
     steps:
     - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |
+        sudo apt-get install xml2
     - name: Download Script to create tag
       run: |
         wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/postbuild_createtag,sh && chmod +x postbuild_createtag,sh
