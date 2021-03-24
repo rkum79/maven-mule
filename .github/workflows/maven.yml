@@ -73,6 +73,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Download Script to create tag
       run: |
-        wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/version_check.sh && chmod +x version_check.sh
+        wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/postbuild_createtag,sh && chmod +x postbuild_createtag,sh
     - name: Update version
-      run: sh ./version_check.sh
+      run: sh ./postbuild_createtag,sh
