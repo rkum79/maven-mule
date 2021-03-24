@@ -29,10 +29,14 @@ jobs:
        echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
     - name: check git log
       run: git log -1
-    - name: Build with Maven to create Greeter and Mortal contract
-      run: mvn web3j:generate-sources --file pom.xml
-    - name: Build with Maven
-      run: mvn install --file pom.xml
+    - name: Check Branch Name
+      run: echo BRANCH_NAME="${{ GITHUB_REF }}"
+    - name: Check API URL
+      run: echo REPO_URL="${{ GITHUB_API_URL }}"
+#    - name: Build with Maven to create Greeter and Mortal contract
+#      run: mvn web3j:generate-sources --file pom.xml
+#    - name: Build with Maven
+#      run: mvn install --file pom.xml
     - name: Build with Maven
       run: echo VERSION=${{ steps.variables.outputs.version }}
     outputs:
