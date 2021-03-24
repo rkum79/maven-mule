@@ -39,7 +39,8 @@ jobs:
     - name: Update version
       run: sh ./version_check.sh
     - uses: actions/checkout@v2
-    - uses: ./
+      # this is the new step
+    - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
       if: always()
       with:
         github-token: ${{ github.token }}
