@@ -24,11 +24,9 @@ jobs:
       run: |
         sudo apt-get install xml2
     - name: Set variables
-        id: variables
-        run: |
-          echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
-    - name: 
-      run: xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'
+      id: setting
+      run: |
+       echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
     - name: Build with Maven to create Greeter and Mortal contract
       run: mvn web3j:generate-sources --file pom.xml
     - name: Build with Maven
