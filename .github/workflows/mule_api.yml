@@ -39,15 +39,21 @@ jobs:
     - name: Update version
       run: sh ./version_check.sh
     - uses: actions/checkout@v2
-      # this is the new step using the ms-teams-notification action
-    - name: Notify dedicated teams channel
-      uses: jdcargile/ms-teams-notification@v1.3
+    - uses: ./
+      if: always()
       with:
-          github-token: ${{ github.token }} # this will use the runner's token.
-          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          notification-summary: MULE API build and deployment 
-          notification-color: 17a2b8
-          timezone: America/Denver
+        github-token: ${{ github.token }}
+        webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+        timezone: Asia/Kolkata
+#      # this is the new step using the ms-teams-notification action
+#    - name: Notify dedicated teams channel
+#      uses: jdcargile/ms-teams-notification@v1.3
+#      with:
+#          github-token: ${{ github.token }} # this will use the runner's token.
+#          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+#          notification-summary: MULE API build and deployment 
+#          notification-color: 17a2b8
+#          timezone: America/Denver
   Munit:
     runs-on: ubuntu-latest
     needs: [PreBuild]
