@@ -27,6 +27,8 @@ jobs:
       id: variables
       run: |
        echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
+    - name: check git log
+      run: git log -1
     - name: Build with Maven to create Greeter and Mortal contract
       run: mvn web3j:generate-sources --file pom.xml
     - name: Build with Maven
