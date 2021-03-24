@@ -6,8 +6,9 @@ name: MULESOFT API BUILD & DEPLOYMENT
 on:
   push:
     branches: 
-     - master
-     - develop
+     - master # For Prod environment afyer release it will deploy the PreProd also
+     - develop # For Dev/QA environment
+     - release* # For Stage Environment
   pull_request:
     branches: [ master ]
 jobs:
