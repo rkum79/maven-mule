@@ -49,5 +49,3 @@ jobs:
     - name: Install dependencies for deployment
       run: |
         sudo apt-get install curl jq
-    - name: Build with Maven
-      run: echo VERSION_DEPLOY=${{ jobs.build.steps.variables.outputs.version }}
