@@ -38,13 +38,6 @@ jobs:
         wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/version_check.sh && chmod +x version_check.sh
     - name: Update version
       run: sh ./version_check.sh
-    - uses: actions/checkout@v2
-      # this is the new step
-    - uses: toko-bifrost/ms-teams-deploy-card@master #  or "./" if in a local set-up
-      if: always()
-      with:
-        github-token: ${{ github.token }}
-        webhook-uri: "https://teams.microsoft.com/l/channel/19%3adf802028bd2c496d9892dc7b51c0f3d8%40thread.tacv2/General?groupId=e3bb426d-7f52-4827-aa48-efe95a5b060a&tenantId=d52c9ea1-7c21-47b1-82a3-33a74b1f74b8"
   Munit:
     runs-on: ubuntu-latest
     needs: [PreBuild]
