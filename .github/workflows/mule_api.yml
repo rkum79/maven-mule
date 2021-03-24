@@ -28,8 +28,11 @@ jobs:
       id: variables
       run: |
        echo ::set-output name=version::`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
+       echo ::set-output name=gitlog::`git tag -l |egrep -iwo 1.0.0`
     - name: Build with Maven to create Greeter and Mortal contract
-      run: echo VERSION=${{ steps.variables.outputs.version }}
+      run: 
+       echo VERSION=${{ steps.variables.outputs.version }}
+       echo GITLOG=${{ steps.variables.outputs.gitlog }}
     - name: Download Script to check the Pre
       run: |
         wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/version_check.sh && chmod +x version_check.sh
