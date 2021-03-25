@@ -128,12 +128,82 @@ jobs:
         webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
         timezone: Asia/Kolkata
         environment: TagCreate
-  Deploy:
+  Deploy_Prod:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    needs: [BUILD]
+    needs: [Munit, BUILD]
     name: Prod_Deployment
     environment: production
+    env: 
+        ARTIFACTORY_USER: Rajiv
+        ARTIFACTORY_PASSWORD: Kumar
+        SONARCLOUD_ACCESS_TOKEN: Yadav
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |  
+         echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
+         echo FRISTNAME=${ARTIFACTORY_USER}
+  Deploy_Dev:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    needs: [BUILD]
+    name: Development_Deployment
+    environment: DEV
+    env: 
+        ARTIFACTORY_USER: Rajiv
+        ARTIFACTORY_PASSWORD: Kumar
+        SONARCLOUD_ACCESS_TOKEN: Yadav
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |  
+         echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
+         echo FRISTNAME=${ARTIFACTORY_USER}
+  Deploy_QA:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    needs: [BUILD]
+    name: QA-SIT_Deployment
+    environment: QA
+    env: 
+        ARTIFACTORY_USER: Rajiv
+        ARTIFACTORY_PASSWORD: Kumar
+        SONARCLOUD_ACCESS_TOKEN: Yadav
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |  
+         echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
+         echo FRISTNAME=${ARTIFACTORY_USER}
+
+  Deploy_Stage:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    needs: [BUILD]
+    name: Stage_Deployment
+    environment: Stage
+    env: 
+        ARTIFACTORY_USER: Rajiv
+        ARTIFACTORY_PASSWORD: Kumar
+        SONARCLOUD_ACCESS_TOKEN: Yadav
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |  
+         echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
+         echo FRISTNAME=${ARTIFACTORY_USER}
+
+  Deploy_PreProd:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    needs: [BUILD]
+    name: Preprod_Deployment
+    environment: Stage
     env: 
         ARTIFACTORY_USER: Rajiv
         ARTIFACTORY_PASSWORD: Kumar
