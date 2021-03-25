@@ -128,7 +128,7 @@ jobs:
         webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
         timezone: Asia/Kolkata
         environment: TagCreate
-  Deploy:
+  Deploy_Prod:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     needs: [Munit, BUILD]
@@ -145,7 +145,7 @@ jobs:
       run: |  
          echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
          echo FRISTNAME=${ARTIFACTORY_USER}
-  Deploy:
+  Deploy_Stage:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
     needs: [BUILD]
