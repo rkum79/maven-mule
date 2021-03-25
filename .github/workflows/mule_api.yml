@@ -11,7 +11,7 @@ on:
      - release* # For Stage Environment
   pull_request:
     branches: [master]
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 jobs:
   PreBuild:
