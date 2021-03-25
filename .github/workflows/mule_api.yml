@@ -8,7 +8,7 @@ on:
     branches: 
      - master # For Prod environment after release it will deploy the PreProd also
      - develop # For Dev/QA environment
-     - release* # For Stage Environment
+     - release/1.0.0 # For Stage Environment
   pull_request:
     branches: [master]
     types: [opened, synchronize, reopened]
@@ -182,7 +182,7 @@ jobs:
 
   Deploy_Stage:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release' && github.event_name == 'push'
     needs: [BUILD]
     name: Stage_Deployment
     environment: Stage
@@ -200,7 +200,7 @@ jobs:
 
   Deploy_PreProd:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
     needs: [BUILD]
     name: Preprod_Deployment
     environment: Stage
