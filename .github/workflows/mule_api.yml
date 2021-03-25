@@ -131,9 +131,26 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    needs: [BUILD]
+    needs: [Munit, BUILD]
     name: Prod_Deployment
     environment: production
+    env: 
+        ARTIFACTORY_USER: Rajiv
+        ARTIFACTORY_PASSWORD: Kumar
+        SONARCLOUD_ACCESS_TOKEN: Yadav
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |  
+         echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
+         echo FRISTNAME=${ARTIFACTORY_USER}
+  Deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    needs: [BUILD]
+    name: Stage_Deployment
+    environment: Stage
     env: 
         ARTIFACTORY_USER: Rajiv
         ARTIFACTORY_PASSWORD: Kumar
