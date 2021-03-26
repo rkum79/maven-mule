@@ -211,7 +211,7 @@ jobs:
          echo FRISTNAME=${ARTIFACTORY_USER}
   Automation:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
+#    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
     needs: [Deploy_Prod]
     name: Automation_Test
     environment: Stage
@@ -228,7 +228,7 @@ jobs:
          echo FRISTNAME=${ARTIFACTORY_USER}
   OWASP_ZAP:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
+#    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
     needs: [Deploy_Prod]
     name: OWASP_ZAP
     environment: Stage
