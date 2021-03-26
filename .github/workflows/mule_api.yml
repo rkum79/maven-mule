@@ -182,7 +182,7 @@ jobs:
 
   Deploy_Stage:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release/1.0.0' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release/*' && github.event_name == 'push'
     needs: [BUILD]
     name: Stage_Deployment
     environment: Stage
@@ -200,7 +200,7 @@ jobs:
 
   Deploy_PreProd:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release/1.0.0' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release/*' && github.ref == 'refs/heads/hotfix/*' && github.event_name == 'push'
     needs: [BUILD]
     name: Preprod_Deployment
     environment: Stage
