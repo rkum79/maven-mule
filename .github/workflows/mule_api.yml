@@ -8,7 +8,7 @@ on:
     branches: 
      - master # For Prod environment after release it will deploy the PreProd also
      - develop # For Dev/QA environment
-     - release* # For Stage Environment
+     - release/1.0.0 # For Stage Environment
   pull_request:
     branches: [master]
     types: [opened, synchronize, reopened]
@@ -182,7 +182,7 @@ jobs:
 
   Deploy_Stage:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release/1.0.0' && github.event_name == 'push'
     needs: [BUILD]
     name: Stage_Deployment
     environment: Stage
@@ -200,7 +200,7 @@ jobs:
 
   Deploy_PreProd:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/release*' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/release/1.0.0' && github.event_name == 'push'
     needs: [BUILD]
     name: Preprod_Deployment
     environment: Stage
@@ -215,3 +215,19 @@ jobs:
       run: |  
          echo LASTNAME=${SONARCLOUD_ACCESS_TOKEN}
          echo FRISTNAME=${ARTIFACTORY_USER}
+  BackMerge:
+    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    needs: [Deploy_Prod]
+    name: BackMerge_Master_To_Develop
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies for fetch the details from pom.xml
+      run: |
+        sudo apt-get install xml2
+    - name: Download Script to create tag
+      run: |
+        wget --retry-connrefused --waitretry=1 --read-timeout=5 --timeout=5 --tries=10 https://raw.githubusercontent.com/rkum79/shell_scripts/master/post_deployment_backmerge.sh && chmod +x post_deployment_backmerge.sh
+    - name: Update version
+      run: sh ./post_deployment_backmerge.sh
+ 
