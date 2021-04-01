@@ -19,6 +19,10 @@ on:
         description: Choose Browser you want to run Tests on.
         default: chromium
         required: true
+      home:
+        description: 'location'
+        required: false
+        default: 'The Octoverse'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
