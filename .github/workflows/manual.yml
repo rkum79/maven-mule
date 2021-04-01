@@ -11,10 +11,7 @@ on:
         description: Choose Tag to Run Tests With
         default: smoke
         required: true
-      environment:
-        description: Choose Environment on Which you want to run Tests.
-        default: staging
-        required: true
+
       browser:
         description: Choose Browser you want to run Tests on.
         default: chromium
@@ -23,14 +20,11 @@ on:
         description: 'location'
         required: false
         default: 'The Octoverse'
-      include:
-          - displayTargetName: MacOS-Debug
-            os: macos-10.15
-            runs_on: macos-10.15
-            config_name: Debug
-            extra_config_args: --apply-default-debug-flags --trace2file enable
-            includeInDevBranchBuilds: true
-
+      project:
+        description: 'Environment'
+        required: true
+        options: ['production', 'staging', 'development']
+        default: 'development'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
